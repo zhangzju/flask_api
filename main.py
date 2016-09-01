@@ -101,6 +101,38 @@ def post(post_id):
     return render_template(
         'post.html',
         post=post,
+        tags=tags,
+        comments=comments,
+        recent=recent,
+        top_tags=top_tags
+    )
+
+@app.route('/tag/<string:tag_name>')
+def tag(tag_name):
+    tag = Tag.query.filter_by(title=tag_name).first_or_404()
+    posts = tags.posts.order_by(Post.publish_date.desc()).all()
+    recent, top_tags = sidebar_data()
+
+    return render_template(
+        'tag.html',
+        tag=tag,
+        posts=posts,
+        recent=recent,
+        top_tags=top_tags
+    )
+
+@app.route('/user/<string:username>')
+def user(username):
+    user=User.query.filter_by(username=username).first_or_404()
+    posts=user.post.order_by(Post.publish_date.desc()).all()
+    recent, top_tags = sidebar_data()
+
+    return render_template(
+        'user.html',
+        user=user,
+        post=posts,
+        recent=recent,
+        top_tags=top_tags
     )
 
 if __name__ == '__main__':

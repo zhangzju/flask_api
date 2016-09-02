@@ -81,7 +81,7 @@ def sidebar_data():
 @app.route('/')
 @app.route('/<int:page>')
 def home(page=1):
-    posts = Posts.query.order_by(Post.publish_date.desc()).paginate(page, 10)
+    posts = Post.query.order_by(Post.publish_date.desc()).paginate(page, 10)
     recent, top_tags = sidebar_data()
 
     return render_template(

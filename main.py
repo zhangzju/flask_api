@@ -110,7 +110,7 @@ def post(post_id):
 @app.route('/tag/<string:tag_name>')
 def tag(tag_name):
     tag = Tag.query.filter_by(title=tag_name).first_or_404()
-    posts = tags.posts.order_by(Post.publish_date.desc()).all()
+    posts = tag.posts.order_by(Post.publish_date.desc()).all()
     recent, top_tags = sidebar_data()
 
     return render_template(
@@ -124,13 +124,13 @@ def tag(tag_name):
 @app.route('/user/<string:username>')
 def user(username):
     user=User.query.filter_by(username=username).first_or_404()
-    posts=user.post.order_by(Post.publish_date.desc()).all()
+    posts=user.posts.order_by(Post.publish_date.desc()).all()
     recent, top_tags = sidebar_data()
 
     return render_template(
         'user.html',
         user=user,
-        post=posts,
+        posts=posts,
         recent=recent,
         top_tags=top_tags
     )

@@ -30,7 +30,7 @@
       <h5>Porpular Tags</h5>
       <ul>
         {% for tag in top_tags%}
-        <li><a href="{{ url_for('tag', tag_name=tag[0].title)}}"></a>{{tag[0].title}}</li>
+        <li><a href="{{ url_for('tag', tag_name=tag[0].title)}}">{{tag[0].title}}</a></li>
         {% endfor %}
       </ul>
     </div>

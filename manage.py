@@ -6,7 +6,7 @@ migrate = Migrate(app, db)
 
 manager = Manager(app)
 
-manager.add_command("server", Server())
+manager.add_command("server", Server(host="0.0.0.0"))
 manager.add_command("db", MigrateCommand)
 
 @manager.shell

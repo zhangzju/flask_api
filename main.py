@@ -1,10 +1,12 @@
 from flask import Flask, render_template
 from config import DevConfig
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from flask_wtf import Form
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Length
+
+import datetime
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
@@ -82,12 +84,8 @@ def sidebar_data():
     return recent, top_tags
 
 class CommentForm(Form):
-    name = StringField(
-        'Name',
-        validators=[DataRequired(), Length(max=255)]
-    )
-
-    text = TextAreaField(u'Comment', validators=[DataRequired])
+    name = StringField('Name', validators=[DataRequired(), Length(max=255)])
+    text = TextAreaField(u'Comment', validators=[DataRequired()])
 
 
 @app.route('/')
